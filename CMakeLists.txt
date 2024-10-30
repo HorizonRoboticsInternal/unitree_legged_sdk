@@ -21,6 +21,8 @@ set(EXTRA_LIBS -pthread libunitree_legged_sdk.so)
 
 set(CMAKE_CXX_FLAGS "-O3 -fPIC")
 
+find_package(pybind11 REQUIRED)
+
 # one pc one process
 add_executable(example_position example/example_position.cpp)
 target_link_libraries(example_position ${EXTRA_LIBS})
@@ -40,6 +42,6 @@ target_link_libraries(example_recover_stand ${EXTRA_LIBS})
 add_executable(example_joystick example/example_joystick.cpp)
 target_link_libraries(example_joystick ${EXTRA_LIBS})
 
-
-
+pybind11_add_module(robot_interface python_interface.cpp)
+target_link_libraries(robot_interface ${EXTRA_LIBS} unitree_legged_sdk)
 
